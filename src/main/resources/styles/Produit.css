@@ -1,0 +1,40 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+#familleProduitForm {
+	-fx-font-family: "Avenir Next";
+	-fx-background-color: DODGERBLUE;
+	-fx-background-image: url('../images/pharma.png');
+}
+
+#nomFamille,
+#codeFamille{
+	-fx-font: bold 15.0px "Avenir Next";
+	-fx-background-color: #008080;
+	-fx-text-fill: BLACK;
+}
+
+#labelFamProduitTitle {
+	-fx-font: bold 28.0px "Avenir Next";
+	-fx-background-color: #008080;
+	-fx-text-fill: WHITE;
+
+}
+#action-buttons{
+	
+}
+#titleLabel {
+	-fx-font: bold 28.0px Pacifico;
+	-fx-padding: 0.0 0.0 40.0px 0.0;
+}
+#statusLabel {
+	-fx-font: bold 28.0px Pacifico;
+	-fx-font-size: 14.0px;
+}
+.button {
+	-fx-font-size: 16.0px;
+	-fx-background-color: #E66A6A;
+	-fx-background-radius: 5.0px;
+	-fx-text-fill: #FFF;
+	-fx-padding: 8.0px;
+}
