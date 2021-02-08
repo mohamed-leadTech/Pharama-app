@@ -13,6 +13,7 @@ import com.pharmacy.view.FxmlView;
 public class Main extends Application {
 
     protected ConfigurableApplicationContext springContext;
+    
     protected StageManager stageManager;
 
     public static void main(final String[] args) {
