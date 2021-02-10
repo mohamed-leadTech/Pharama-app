@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,18 +19,29 @@ public class FamilleProduit implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="code_fam")
-	private String codeFam;
-	
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "code", updatable = false, nullable = false)
+	private Long code;
+		
 	@Column(name="nom_fam")
 	private String nomFam;
+	
+	private String libelle;
 
-	public String getCodeFam() {
-		return codeFam;
+	public Long getCode() {
+		return code;
 	}
 
-	public void setCodeFam(String codeFam) {
-		this.codeFam = codeFam;
+	public void setCode(Long code) {
+		this.code = code;
+	}
+
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 	public String getNomFam() {
@@ -41,8 +54,10 @@ public class FamilleProduit implements Serializable{
 
 	@Override
 	public String toString() {
-		return "FamilleProduit [codeFam=" + codeFam + ", nomFam=" + nomFam + "]";
+		return "FamilleProduit [code=" + code + ", nomFam=" + nomFam + ", libelle=" + libelle + "]";
 	}
+
+	
 	
 	
 

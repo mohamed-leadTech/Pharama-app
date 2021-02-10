@@ -10,12 +10,11 @@ public interface GenericService<T extends Object> {
   
     void delete(T entity);
   
-    default void delete(Long id) {};
+    void delete(Long id);
     
     void deleteInBatch(List<T> entities);
   
-    default T find(Long id) {
-		return null;};
+    T find(Long id);
   
     List<T> findAll();
 }

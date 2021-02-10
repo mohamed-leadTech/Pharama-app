@@ -30,8 +30,9 @@ public class FamilleProduitServiceImpl implements FamilleProduitService{
 		familleProduitRepository.delete(entity);
 		
 	}
-
-	public void delete(String codeFam) {
+    
+	@Override
+	public void delete(Long codeFam) {
 		familleProduitRepository.delete(codeFam);		
 	}
 
@@ -40,9 +41,9 @@ public class FamilleProduitServiceImpl implements FamilleProduitService{
 		familleProduitRepository.deleteInBatch(entities);		
 	}
 
-
-	public FamilleProduit find(String codeFam) {
-		return familleProduitRepository.findOne(codeFam);
+    @Override
+	public FamilleProduit find(Long code) {
+		return familleProduitRepository.findOne(code);
 	}
 
 	@Override

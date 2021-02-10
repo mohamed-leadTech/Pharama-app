@@ -21,7 +21,14 @@
 
 }
 #action-buttons{
-	
+		-fx-padding: 30.0 10.0 0.0 0.0;
+}
+#action-buttons .button {
+		-fx-background-color: TRANSPARENT;
+}
+
+#familleProduitTable .table-column {
+  -fx-alignment: CENTER;
 }
 #titleLabel {
 	-fx-font: bold 28.0px Pacifico;

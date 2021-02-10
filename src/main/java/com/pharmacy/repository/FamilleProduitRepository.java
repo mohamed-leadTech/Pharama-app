@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.pharmacy.bean.FamilleProduit;
 
 @Repository
-public interface FamilleProduitRepository extends JpaRepository<FamilleProduit, String>{
+public interface FamilleProduitRepository extends JpaRepository<FamilleProduit, Long>{
 
 }

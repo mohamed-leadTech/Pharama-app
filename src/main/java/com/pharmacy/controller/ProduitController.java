@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.pharmacy.bean.FamilleProduit;
 import com.pharmacy.config.StageManager;
 import com.pharmacy.service.FamilleProduitService;
+import com.pharmacy.utils.PharmacyUtils;
 import com.pharmacy.view.FxmlView;
 
 import javafx.collections.FXCollections;
@@ -20,7 +21,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -42,19 +46,25 @@ public class ProduitController implements Initializable {
 	private TableView<FamilleProduit> familleProduitTable;
 
 	@FXML
-	private TableColumn<FamilleProduit, String> colCodeFam;
+	private TableColumn<FamilleProduit, Long> colCodeFam;
 
 	@FXML
 	private TableColumn<FamilleProduit, String> colNomFam;
 
 	@FXML
+	private TableColumn<FamilleProduit, String> colLibelle;
+
+	@FXML
 	private TableColumn<FamilleProduit, Boolean> colEdit;
 
 	@FXML
-	private TextField codeFam;
+	private TextField libelle;
 
 	@FXML
 	private TextField nomFam;
+
+	@FXML
+	private Label code;
 
 	@Autowired
 	private FamilleProduitService familleProduitService;
@@ -78,7 +88,8 @@ public class ProduitController implements Initializable {
 	}
 
 	void setColumnProperties() {
-		colCodeFam.setCellValueFactory(new PropertyValueFactory<>("codeFam"));
+		colCodeFam.setCellValueFactory(new PropertyValueFactory<>("code"));
+		colLibelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
 		colNomFam.setCellValueFactory(new PropertyValueFactory<>("nomFam"));
 		colEdit.setCellFactory(cellFactory);
 	}
@@ -117,8 +128,9 @@ public class ProduitController implements Initializable {
 				}
 
 				private void updateFamilleProduit(FamilleProduit familleProduit) {
-					codeFam.setText(familleProduit.getCodeFam());
+					libelle.setText(familleProduit.getLibelle());
 					nomFam.setText(familleProduit.getNomFam());
+					code.setText(familleProduit.getCode().toString());
 				}
 			};
 			return cell;
@@ -135,5 +147,66 @@ public class ProduitController implements Initializable {
 
 		familleProduitTable.setItems(famProduitsList);
 	}
+	@FXML
+	void reset(ActionEvent event) {
+		clearFields();
+	}
 
+
+	@FXML
+	private void saveFamilleProduit(ActionEvent event) {
+
+		if (PharmacyUtils.emptyValidation("Libelle", libelle.getText().isEmpty())
+				&& PharmacyUtils.emptyValidation("Nom famille", nomFam.getText().isEmpty())) {
+
+			if (code.getText() == null || code.getText() == "") {
+
+				FamilleProduit famProduit = new FamilleProduit();
+				famProduit.setLibelle(libelle.getText());
+				famProduit.setNomFam(nomFam.getText());
+				FamilleProduit newFamProduit = familleProduitService.save(famProduit);
+
+				saveAlert(newFamProduit);
+
+			} else {
+				FamilleProduit famProduit = familleProduitService.find(Long.parseLong(code.getText()));
+				famProduit.setLibelle(libelle.getText());;
+				famProduit.setNomFam(nomFam.getText());;
+				
+				FamilleProduit updatedFamilleProduit = familleProduitService.update(famProduit);
+				updateAlert(updatedFamilleProduit);
+			}
+
+			clearFields();
+			loadFamilleProduitsDetails();
+		}
+
+	}
+
+	private void clearFields() {
+		code.setText(null);
+		nomFam.clear();
+		libelle.clear();
+	}
+
+	private void saveAlert(FamilleProduit newFamProduit) {
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Family product saved successfully.");
+		alert.setHeaderText(null);
+		alert.setContentText("The product family " + newFamProduit.getLibelle() + " " + newFamProduit.getNomFam()
+				+ " has been created and \n" + " code is " + newFamProduit.getCode() + ".");
+		alert.showAndWait();
+	}
+
+	private void updateAlert(FamilleProduit famProduit) {
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Product family updated successfully.");
+		alert.setHeaderText(null);
+		alert.setContentText(
+				"The product family " + famProduit.getLibelle() + " " + famProduit.getNomFam() + " has been updated.");
+		alert.showAndWait();
+
+	}
 }

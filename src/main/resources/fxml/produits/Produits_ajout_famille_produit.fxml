@@ -16,8 +16,8 @@
 
 
 
-<BorderPane id="familleProduitForm"
-	stylesheets="@../../styles/Produit.css"
+<BorderPane id="familleProduitForm" prefWidth="679.0"
+	prefHeight="500.0" stylesheets="@../../styles/Produit.css"
 	xmlns="http://javafx.com/javafx/8.0.111"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="com.pharmacy.controller.ProduitController">
@@ -46,7 +46,7 @@
 					</VBox.margin>
 				</Label>
 				<HBox id="produit_fam_field">
-					<Label id="codeFamille" text="Code Famille">
+					<Label id="codeFamille" text="Libellé Famille">
 						<font>
 							<Font size="20.0" />
 						</font>
@@ -54,14 +54,14 @@
 							<Insets left="10.0" right="10.0" />
 						</HBox.margin>
 					</Label>
-					<TextField fx:id="codeFam" promptText="Code famille">
+					<TextField fx:id="libelle" promptText="Libelle famille">
 						<HBox.margin>
 							<Insets left="10.0" right="25.0" />
 						</HBox.margin>
 					</TextField>
 				</HBox>
 
-				<HBox>
+				<HBox spacing="10.0">
 					<Label id="nomFamille" text="Nom Famille">
 						<font>
 							<Font size="20.0" />
@@ -76,11 +76,14 @@
 						</HBox.margin>
 					</TextField>
 				</HBox>
+				<Label text="Label" visible="false" fx:id="code" />
 				<TableView fx:id="familleProduitTable" prefHeight="400.0"
 					prefWidth="679.0" tableMenuButtonVisible="true">
 					<columns>
 						<TableColumn fx:id="colCodeFam" maxWidth="4000.0"
-							prefWidth="75.0" text="Code Famille" />
+							prefWidth="75.0" text="Code" />
+						<TableColumn fx:id="colLibelle" maxWidth="4000.0"
+							prefWidth="75.0" text="Libelle" />
 						<TableColumn fx:id="colNomFam" maxWidth="4000.0"
 							prefWidth="75.0" text="Nom Famille" />
 						<TableColumn fx:id="colEdit" maxWidth="2000.0"
@@ -100,21 +103,28 @@
 	<right>
 		<VBox spacing="10.0" id="action-buttons">
 			<children>
-				<ImageView id="boxImage" fitHeight="60.0" fitWidth="75.0">
-					<image>
-						<Image url="@../../images/add.png" />
-					</image>
-				</ImageView>
-				<ImageView id="boxImage" fitHeight="80.0" fitWidth="75.0">
-					<image>
-						<Image url="@../../images/plus.png" />
-					</image>
-				</ImageView>
-				<ImageView id="boxImage" fitHeight="100.0" fitWidth="80.0">
-					<image>
-						<Image url="@../../images/trash.jpg" />
-					</image>
-				</ImageView>
+				<Button contentDisplay="RIGHT" mnemonicParsing="false"
+					onAction="#saveFamilleProduit">
+					<graphic>
+						<ImageView id="boxImageApprove" fitHeight="50.0"
+							fitWidth="50.0">
+							<image>
+								<Image url="@../../images/approve.jpg" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
+				<Button contentDisplay="RIGHT" mnemonicParsing="false"
+					onAction="#reset">
+					<graphic>
+						<ImageView id="boxImageReset" fitHeight="50.0"
+							fitWidth="50.0">
+							<image>
+								<Image url="@../../images/reset.jpg" />
+							</image>
+						</ImageView>
+					</graphic>
+				</Button>
 			</children>
 
 		</VBox>
